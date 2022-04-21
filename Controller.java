@@ -12,8 +12,9 @@ public class Controller {
     // - -> reset volume
     // I,i,O,o,U,u -> repetir nota
     // T+/T- -> aumentar/diminuir 1 oitava
-    // ?,. -> aleatória
-    // NL<#instrumento> -> trocar instrumento
+    // ? ->dim
+
+    // . -> reseta oitava oitav a oita/!->au/
     // BPM+/BPM- -> aumenta/diminui 50 bpm
     // bpm+/bpm- -> aumenta/diminui 10 bpm
     // outros caracteres -> NOP
@@ -35,10 +36,10 @@ public class Controller {
             } else if (currentChar == 'B') {
                 if ((i + 3 < sequence.length()) && (sequence.charAt(i + 1) == 'P') && (sequence.charAt(i + 2) == 'M')) {
                     if (sequence.charAt(i + 3) == '+') {
-                        player.increaseBPM(50);
+                        player.setBPM(player.getBPM() + 50, false);
                         i += 3;
                     } else if (sequence.charAt(i + 3) == '-') {
-                        player.decreaseBPM(50);
+                        player.setBPM(player.getBPM() - 50, false);
                         i += 3;
                     } else
                         player.addNote("B");
@@ -47,27 +48,28 @@ public class Controller {
             } else if (currentChar == 'b') {
                 if ((i + 3 < sequence.length()) && (sequence.charAt(i + 1) == 'p') && (sequence.charAt(i + 2) == 'm')) {
                     if (sequence.charAt(i + 3) == '+') {
-                        player.increaseBPM(10);
+                        player.setBPM(player.getBPM() + 50, false);
                         i += 3;
                     } else if (sequence.charAt(i + 3) == '-') {
-                        player.decreaseBPM(10);
+                        player.setBPM(player.getBPM() - 50, false);
+                        ;
                         i += 3;
                     } else
                         player.addNote("B");
                 } else
                     player.addNote("B");
             } else if (currentChar == '+') {
-                player.doubleVolume();
-            } else if (currentChar == '-') {
-                player.resetVolume();
+                player.setVolume(player.getVolume() * 2, false);
+            } else if (currentChar == '+') {
+                player.setVolume(0, true);
             } else if ((currentChar == '.') || (currentChar == '?')) {
                 player.addNote(randomNote());
             } else if (currentChar == 'T') {
                 if (sequence.charAt(i + 1) == '+') {
-                    player.increaseOctave();
+                    player.setOctave(player.getOctave() + 1, false);
                     i++;
                 } else if (sequence.charAt(i + 1) == '-') {
-                    player.decreaseOctave();
+                    player.setOctave(player.getOctave() - 1, false);
                     i++;
                 } else
                     // NOP
@@ -81,9 +83,10 @@ public class Controller {
                     player.repeatLastCommand();
             } else if ((i + 2 < sequence.length()) && (currentChar == 'N') && (sequence.charAt(i + 1) == 'L')
                     && Character.isDigit(sequence.charAt(i + 2))) {
-                player.changeInstrument(sequence.charAt(i + 2) - '0');
+                player.setInstrument(sequence.charAt(i + 2) - '0', false);
                 i += 2;
-                // TODO pause
+                // } else if (){
+                // player.addSilence();
             } else
                 // NOP
                 player.repeatLastCommand();
@@ -91,6 +94,7 @@ public class Controller {
         }
 
         player.playSequence();
+
     }
 
     public void loadSequence(String sequence) {
@@ -99,6 +103,9 @@ public class Controller {
 
     public void saveSequence(String sequence) {
         // TODO save file
+    }
+
+    public void saveSequenceMIDI(String sequence) {
     }
 
 }
