@@ -26,7 +26,7 @@ public class Controller {
 
     public void executeSequence(String sequence) {
         player.resetSequence();
-
+        // TODO refatorar
         int i = 0;
         while (i < sequence.length()) {
             char currentChar = sequence.charAt(i);
@@ -86,7 +86,7 @@ public class Controller {
                 player.setInstrument(sequence.charAt(i + 2) - '0', false);
                 i += 2;
                 // } else if (){
-                // player.addSilence();
+                // player.addSilence(); // TODO regra silêncio
             } else
                 // NOP
                 player.repeatLastCommand();
@@ -98,14 +98,15 @@ public class Controller {
     }
 
     public void loadSequence(String sequence) {
-        // TODO load file
+        // TODO load txt file
     }
 
     public void saveSequence(String sequence) {
-        // TODO save file
+        // TODO save txt file
     }
 
     public void saveSequenceMIDI(String sequence) {
+        // TODO save MIDI
     }
 
 }
