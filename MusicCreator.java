@@ -102,15 +102,15 @@ public class MusicCreator extends Application {
 
         Label InstrumentLabel = new Label("Escolher instrumento:");
         Button DefaultInstrumentButtom = new Button("Default");
-        setAddTextButtomAction(DefaultInstrumentButtom, tf1, ""); // TODO set comandos instrumentos
+        setAddTextButtomAction(DefaultInstrumentButtom, tf1, "0");
         Button PanFluteInstrumentButtom = new Button("Pan Flute");
-        setAddTextButtomAction(PanFluteInstrumentButtom, tf1, "");
+        setAddTextButtomAction(PanFluteInstrumentButtom, tf1, ";");
         Button ChurchOrganInstrumentButtom = new Button("Church Organ");
-        setAddTextButtomAction(ChurchOrganInstrumentButtom, tf1, "");
+        setAddTextButtomAction(ChurchOrganInstrumentButtom, tf1, ",");
         Button Piano1InstrumentButtom = new Button("Piano 1");
-        setAddTextButtomAction(Piano1InstrumentButtom, tf1, "");
+        setAddTextButtomAction(Piano1InstrumentButtom, tf1, " ");
         Button TubularBellsInstrumentButtom = new Button("Tubular Bells");
-        setAddTextButtomAction(TubularBellsInstrumentButtom, tf1, "");
+        setAddTextButtomAction(TubularBellsInstrumentButtom, tf1,  ""+(char)10);
 
         Label OthersLabel = new Label("Outros:");
         Button SilenceButtom = new Button("Silêncio");
