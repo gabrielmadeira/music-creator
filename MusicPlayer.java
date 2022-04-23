@@ -1,4 +1,8 @@
+import java.io.File;
 import java.util.*;
+
+import org.jfugue.midi.MidiFileManager;
+import org.jfugue.pattern.Pattern;
 import org.jfugue.player.*;
 
 public class MusicPlayer {
@@ -14,6 +18,8 @@ public class MusicPlayer {
     final int MIN_INSTRUMENT = 0;
     final int MAX_INSTRUMENT = 127;
     final int ORIGINAL_INSTRUMENT = 57; // Trumpet;
+
+    final String midiFile = "music.mid";
 
     private int volume = ORIGINAL_VOLUME;
     private int bpm = ORIGINAL_BPM;
@@ -167,6 +173,16 @@ public class MusicPlayer {
         }
         lastCommand = new StringBuilder(lastCommand).reverse().toString();
         music += " " + lastCommand;
+    }
+
+    public boolean saveMIDI(){
+        try {
+            MidiFileManager.savePatternToMidi(new Pattern(music), new File(midiFile));
+            return true;
+        } catch (Exception e) {
+            System.out.println(e);
+            return false;
+        }
     }
 
     public void playSequence() {
