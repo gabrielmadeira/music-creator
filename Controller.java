@@ -85,12 +85,21 @@ public class Controller {
                 else
                     // NOP
                     player.repeatLastCommand();
-            } else if ((i + 2 < sequence.length()) && (currentChar == 'N') && (sequence.charAt(i + 1) == 'L')
-                    && Character.isDigit(sequence.charAt(i + 2))) {
-                player.setInstrument(sequence.charAt(i + 2) - '0', false);
-                i += 2;
+            } else if (currentChar == '0') {
+                player.setInstrument(0, true);
+            } else if (currentChar == ';') {
+                player.setInstrument(76, false);
+            } else if (currentChar == ',') {
+                player.setInstrument(20, false);
+            } else if (currentChar == ' ') {
+                player.setInstrument(1, false);
+            } else if (currentChar == (char)10) {
+                player.setInstrument(15, false);
+
                 // } else if (){
                 // player.addSilence(); // TODO regra silêncio
+            } else if((int)currentChar >= 49 && (int)currentChar <= 57){
+                player.setInstrument(player.getInstrument()+1, false);
             } else
                 // NOP
                 player.repeatLastCommand();
