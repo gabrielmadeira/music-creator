@@ -211,7 +211,73 @@ public class MusicCreator extends Application {
                 } else {
                     leftPane.getChildren().remove(t);
                     System.out.println(tf1.getText());
-                    control.executeSequence(tf1.getText());
+                    control.executeSequence(tf1.getText(),true);
+                }
+            }
+        });
+
+        SaveTxtButtom.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent event) {
+                if (tf1.getText().isEmpty()) {
+                    if (t.getText().isEmpty() == false) {
+                        leftPane.getChildren().remove(t);
+                    }
+                    t.setText("Please enter a music string");
+                    // root.addRow(5, t);
+                    leftPane.add(t, 0, 6, 4, 1);
+                    return;
+                } else {
+                    leftPane.getChildren().remove(t);
+                    if (control.saveSequence(tf1.getText())){
+                        t.setText("Music file saved succesfully");
+                    }else{
+                        t.setText("Error on saving music file");
+                    }
+
+                    leftPane.add(t, 0, 6, 4, 1);
+                }
+            }
+        });
+
+        LoadTxtButtom.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent event) {
+                leftPane.getChildren().remove(t);
+                String loaded = control.loadSequence();
+                if (loaded != ""){
+                    t.setText("Music text loaded succesfully");
+                    tf1.setText(loaded);
+                }else{
+                    t.setText("Error on loading music test");
+                }
+
+                leftPane.add(t, 0, 6, 4, 1);
+            }
+        });
+
+        SaveMIDIButtom.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent event) {
+                if (tf1.getText().isEmpty()) {
+                    if (t.getText().isEmpty() == false) {
+                        leftPane.getChildren().remove(t);
+                    }
+                    t.setText("Please enter a music string");
+                    // root.addRow(5, t);
+                    leftPane.add(t, 0, 6, 4, 1);
+                    return;
+                } else {
+                    leftPane.getChildren().remove(t);
+
+                    control.executeSequence(tf1.getText(), false);
+                    if (control.saveSequenceMIDI()){
+                        t.setText("Music saved succesfully");
+                    }else{
+                        t.setText("Error on saving music");
+                    }
+
+                    leftPane.add(t, 0, 6, 4, 1);
                 }
             }
         });

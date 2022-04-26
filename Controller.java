@@ -1,6 +1,10 @@
 import java.util.Random;
+import java.io.*;
+import java.nio.file.Files;
+import java.nio.file.Path;
 
 public class Controller {
+    final String musicFile = "music.txt";
     MusicPlayer player = new MusicPlayer();
 
     // A C D B BPM+ A D B E
@@ -24,7 +28,7 @@ public class Controller {
         return player.getNoteList().get(rand.nextInt(player.getNoteList().size()));
     }
 
-    public void executeSequence(String sequence) {
+    public void executeSequence(String sequence, Boolean play) {
         player.resetSequence();
         // TODO refatorar
         int i = 0;
@@ -92,21 +96,39 @@ public class Controller {
                 player.repeatLastCommand();
             i++;
         }
+        if (play){
+            player.playSequence();
+        }
+    }
 
-        player.playSequence();
+    public String loadSequence() {
+        try {
+            Path fileName = Path.of(musicFile);
+            return Files.readString(fileName);
+        } catch (Exception e) {
+            System.out.println(e);
+            return "";
+        }
+    }
+
+    public boolean saveSequence(String sequence) {
+        try {
+            OutputStream os = new FileOutputStream(musicFile);
+            Writer wr = new OutputStreamWriter(os);
+            BufferedWriter br = new BufferedWriter(wr);
+
+            br.write(sequence);
+            br.close();
+            return true;
+        } catch (Exception e) {
+            System.out.println(e);
+            return false;
+        }
 
     }
 
-    public void loadSequence(String sequence) {
-        // TODO load txt file
-    }
-
-    public void saveSequence(String sequence) {
-        // TODO save txt file
-    }
-
-    public void saveSequenceMIDI(String sequence) {
-        // TODO save MIDI
+    public boolean saveSequenceMIDI() {
+        return player.saveMIDI();
     }
 
 }
