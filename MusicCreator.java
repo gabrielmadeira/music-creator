@@ -78,9 +78,9 @@ public class MusicCreator extends Application {
 
         Label OctavesLabel = new Label("Editar oitava:");
         Button IncOctaveButtom = new Button("+");
-        setAddTextButtomAction(IncOctaveButtom, tf1, "T+");
+        setAddTextButtomAction(IncOctaveButtom, tf1, "!");
         Button DecOctaveButtom = new Button("-");
-        setAddTextButtomAction(DecOctaveButtom, tf1, "T-");
+        setAddTextButtomAction(DecOctaveButtom, tf1, "?");
         Button ResetOctaveButtom = new Button("⟲");
         setAddTextButtomAction(ResetOctaveButtom, tf1, ".");
 
@@ -110,11 +110,12 @@ public class MusicCreator extends Application {
         Button Piano1InstrumentButtom = new Button("Piano 1");
         setAddTextButtomAction(Piano1InstrumentButtom, tf1, " ");
         Button TubularBellsInstrumentButtom = new Button("Tubular Bells");
-        setAddTextButtomAction(TubularBellsInstrumentButtom, tf1,  ""+(char)10);
+        setAddTextButtomAction(TubularBellsInstrumentButtom, tf1, "" + (char) 10);
+        Label InstrumentOptionsLabel = new Label("Mais instrumentos: dígitos de 1 à 9");
 
         Label OthersLabel = new Label("Outros:");
         Button SilenceButtom = new Button("Silêncio");
-        setAddTextButtomAction(SilenceButtom, tf1, ""); // TODO comando silencio
+        setAddTextButtomAction(SilenceButtom, tf1, "N");
         Button ContinueButtom = new Button("Continuar");
         setAddTextButtomAction(ContinueButtom, tf1, "N");
         Button FlatButtom = new Button("Bemol");
@@ -175,6 +176,7 @@ public class MusicCreator extends Application {
         instrumentPane.add(ChurchOrganInstrumentButtom, 2, 1);
         instrumentPane.add(Piano1InstrumentButtom, 3, 1);
         instrumentPane.add(TubularBellsInstrumentButtom, 0, 2, 2, 1);
+        instrumentPane.add(InstrumentOptionsLabel, 0, 3, 3, 1);
         instrumentPane.setHgap(5);
         instrumentPane.setVgap(5);
         rightPane.add(instrumentPane, 0, 4);
@@ -211,7 +213,7 @@ public class MusicCreator extends Application {
                 } else {
                     leftPane.getChildren().remove(t);
                     System.out.println(tf1.getText());
-                    control.executeSequence(tf1.getText(),true);
+                    control.executeSequence(tf1.getText(), true);
                 }
             }
         });
@@ -229,9 +231,9 @@ public class MusicCreator extends Application {
                     return;
                 } else {
                     leftPane.getChildren().remove(t);
-                    if (control.saveSequence(tf1.getText())){
+                    if (control.saveSequence(tf1.getText())) {
                         t.setText("Music file saved succesfully");
-                    }else{
+                    } else {
                         t.setText("Error on saving music file");
                     }
 
@@ -245,10 +247,10 @@ public class MusicCreator extends Application {
             public void handle(ActionEvent event) {
                 leftPane.getChildren().remove(t);
                 String loaded = control.loadSequence();
-                if (loaded != ""){
+                if (loaded != "") {
                     t.setText("Music text loaded succesfully");
                     tf1.setText(loaded);
-                }else{
+                } else {
                     t.setText("Error on loading music test");
                 }
 
@@ -271,9 +273,9 @@ public class MusicCreator extends Application {
                     leftPane.getChildren().remove(t);
 
                     control.executeSequence(tf1.getText(), false);
-                    if (control.saveSequenceMIDI()){
+                    if (control.saveSequenceMIDI()) {
                         t.setText("Music saved succesfully");
-                    }else{
+                    } else {
                         t.setText("Error on saving music");
                     }
 

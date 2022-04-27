@@ -26,25 +26,19 @@ public class MusicPlayer {
     private int octave = ORIGINAL_OCTAVE;
     private int instrument = ORIGINAL_INSTRUMENT;
 
-    private List<String> instrumentList = new ArrayList<String>(Arrays.asList("PIANO", "ELECTRIC_PIANO", "CHURCH_ORGAN",
-            "GUITAR", "VIOLIN", "TRUMPET", "TROMBONE", "CLARINET", "FLUTE", "STEEL_DRUMS"));
-    // "BANJO", "XYLOPHONE",
-    // "ACOUSTIC_BASS","CELLO","TUBA","TENOR_SAX","HELICOPTER","TENOR_SAX","HELICOPTER""CELLO","TUBA","ACCORDIAN",
     private List<String> noteList = new ArrayList<String>(Arrays.asList("A", "B", "C", "D", "E", "F", "G"));
 
-    private String music = "I[" + instrument + "] T" + bpm; // TODO implement volume
+    private String music = "I[" + instrument + "] T" + bpm + " :CON(935, " + volume + ") ";
     Player player = new Player();
 
     public int getVolume() {
         return volume;
     }
 
-    public boolean setVolume(int value, boolean reset) {
-        if (reset) {
-            volume = ORIGINAL_VOLUME;
-            return true;
-        } else if ((value <= MAX_VOLUME) && (value >= MIN_VOLUME)) {
+    public boolean setVolume(int value) {
+        if ((value <= MAX_VOLUME) && (value >= MIN_VOLUME)) {
             volume = value;
+            music += " :CON(935, " + volume + ") ";
             return true;
         }
         return false;
@@ -52,24 +46,15 @@ public class MusicPlayer {
 
     public void resetVolume() {
         volume = ORIGINAL_VOLUME;
-    }
-
-    public boolean doubleVolume() {
-        if ((volume * 2) > MAX_VOLUME)
-            return false;
-        volume *= 2;
-        return true;
+        music += " :CON(935, " + volume + ") ";
     }
 
     public int getBPM() {
         return bpm;
     }
 
-    public boolean setBPM(int value, boolean reset) {
-        if (reset) {
-            bpm = ORIGINAL_BPM;
-            return true;
-        } else if ((value <= MAX_BPM) && (value >= MIN_BPM)) {
+    public boolean setBPM(int value) {
+        if ((value <= MAX_BPM) && (value >= MIN_BPM)) {
             bpm = value;
             music += " T" + bpm;
             return true;
@@ -77,81 +62,44 @@ public class MusicPlayer {
         return false;
     }
 
-    public boolean increaseBPM(int qtd) {
-        if ((bpm + qtd) > MAX_BPM)
-            return false;
-        bpm += qtd;
-        music += " T" + bpm;
-        return true;
-    }
-
-    public boolean decreaseBPM(int qtd) {
-        if ((bpm - qtd) < MIN_BPM)
-            return false;
-        bpm -= qtd;
-        music += " T" + bpm;
-        return true;
-    }
-
     public int getOctave() {
         return octave;
     }
 
-    public boolean setOctave(int value, boolean reset) {
-        if (reset) {
-            octave = ORIGINAL_OCTAVE;
-            return true;
-        } else if ((value <= MAX_OCTAVE) && (value >= MIN_OCTAVE)) {
+    public boolean setOctave(int value) {
+        if ((value <= MAX_OCTAVE) && (value >= MIN_OCTAVE)) {
             octave = value;
             return true;
         }
         return false;
     }
 
-    public boolean increaseOctave() {
-        if (octave < MAX_OCTAVE) {
-            octave++;
-            return true;
-        }
-        return false;
-    }
-
-    public boolean decreaseOctave() {
-        if (octave > MIN_OCTAVE) {
-            octave--;
-            return true;
-        }
-        return false;
+    public void resetOctave() {
+        octave = ORIGINAL_OCTAVE;
     }
 
     public int getInstrument() {
         return instrument;
     }
 
-    public boolean setInstrument(int instrumentNumber, boolean reset) {
-        if (reset) {
-            instrument = ORIGINAL_INSTRUMENT;
-        } else if (instrumentNumber >= MIN_INSTRUMENT && instrumentNumber <= MAX_INSTRUMENT) {
+    public boolean setInstrument(int instrumentNumber) {
+        if (instrumentNumber >= MIN_INSTRUMENT && instrumentNumber <= MAX_INSTRUMENT) {
             instrument = instrumentNumber;
-        } else {
-            return false;
+            music += " I" + instrument;
+            return true;
         }
-        music += " I" + instrument;
-        return true;
+        return false;
     }
 
-    public boolean changeInstrument(int instrumentNumber) {
-        if (instrumentNumber < 0 || instrumentNumber >= instrumentList.size())
-            return false;
-        music += " I[" + instrumentList.get(instrumentNumber) + "]";
-        return true;
+    public void resetInstrument() {
+        instrument = ORIGINAL_INSTRUMENT;
     }
 
     public boolean addNote(String note) {
         if (!noteList.contains(note)) {
             return false;
         }
-        music += " " + note;
+        music += " " + note + octave;
         return true;
     }
 
@@ -175,7 +123,7 @@ public class MusicPlayer {
         music += " " + lastCommand;
     }
 
-    public boolean saveMIDI(){
+    public boolean saveMIDI() {
         try {
             MidiFileManager.savePatternToMidi(new Pattern(music), new File(midiFile));
             return true;
@@ -196,10 +144,17 @@ public class MusicPlayer {
         octave = ORIGINAL_OCTAVE;
         instrument = ORIGINAL_INSTRUMENT;
 
-        music = "I" + instrument + " T" + bpm; // TODO implement volume
+        music = "I" + instrument + " T" + bpm + " :CON(935, " + volume + ") ";
     }
 
-    public List<String> getNoteList() {
-        return noteList;
+    public void setFlat() {
+        int pos = music.length() - 1;
+        music = music.substring(0, pos) + 'b' + music.charAt(pos);
     }
+
+    public void setSharp() {
+        int pos = music.length() - 1;
+        music = music.substring(0, pos) + '#' + music.charAt(pos);
+    }
+
 }
