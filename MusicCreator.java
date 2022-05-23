@@ -45,7 +45,7 @@ public class MusicCreator extends Application {
         // root.setVgap(50);
         Text text = new Text();
 
-        text.setText("Music Creator - Crie sua música!");
+        text.setText("Music Creator - Create your music!");
         text.setFont(Font.font("Calibri", FontWeight.BOLD, FontPosture.REGULAR, 20));
 
         leftPane.add(text, 0, 0, 4, 1);
@@ -55,28 +55,28 @@ public class MusicCreator extends Application {
         TextArea tf1 = new TextArea();
         tf1.setPrefRowCount(5);
 
-        Button SaveMIDIButtom = new Button("Salvar .MIDI");
-        Button SaveTxtButtom = new Button("Salvar .txt");
-        Button LoadTxtButtom = new Button("Carregar .txt");
-        Button PlayButtom = new Button("Tocar");
+        Button SaveMIDIButtom = new Button("Save .MIDI");
+        Button SaveTxtButtom = new Button("Save .txt");
+        Button LoadTxtButtom = new Button("Load .txt");
+        Button PlayButtom = new Button("Play");
 
-        Label NotesLabel = new Label("Adicionar notas:");
-        Button CButtom = new Button("Dó");
+        Label NotesLabel = new Label("Add notes:");
+        Button CButtom = new Button("C");
         setAddTextButtomAction(CButtom, tf1, "C");
-        Button DButtom = new Button("Ré");
+        Button DButtom = new Button("D");
         setAddTextButtomAction(DButtom, tf1, "D");
-        Button EButtom = new Button("Mi");
+        Button EButtom = new Button("E");
         setAddTextButtomAction(EButtom, tf1, "E");
-        Button FButtom = new Button("Fá");
+        Button FButtom = new Button("F");
         setAddTextButtomAction(FButtom, tf1, "F");
-        Button GButtom = new Button("Sol");
+        Button GButtom = new Button("G");
         setAddTextButtomAction(GButtom, tf1, "G");
-        Button AButtom = new Button("Lá");
+        Button AButtom = new Button("A");
         setAddTextButtomAction(AButtom, tf1, "A");
-        Button BButtom = new Button("Si");
+        Button BButtom = new Button("B");
         setAddTextButtomAction(BButtom, tf1, "B");
 
-        Label OctavesLabel = new Label("Editar oitava:");
+        Label OctavesLabel = new Label("Edit octave:");
         Button IncOctaveButtom = new Button("+");
         setAddTextButtomAction(IncOctaveButtom, tf1, "!");
         Button DecOctaveButtom = new Button("-");
@@ -84,7 +84,7 @@ public class MusicCreator extends Application {
         Button ResetOctaveButtom = new Button("⟲");
         setAddTextButtomAction(ResetOctaveButtom, tf1, ".");
 
-        Label BPMLabel = new Label("Editar BPM:");
+        Label BPMLabel = new Label("Edit BPM:");
         Button Dec50BPMButtom = new Button("-50");
         setAddTextButtomAction(Dec50BPMButtom, tf1, "BPM-");
         Button Dec10BPMButtom = new Button("-10");
@@ -94,13 +94,13 @@ public class MusicCreator extends Application {
         Button Inc50BPMButtom = new Button("+50");
         setAddTextButtomAction(Inc50BPMButtom, tf1, "BPM+");
 
-        Label VolumeLabel = new Label("Editar volume atual:");
+        Label VolumeLabel = new Label("Edit current volume:");
         Button ResetVolumeButtom = new Button("⟲");
         setAddTextButtomAction(ResetVolumeButtom, tf1, "-");
         Button DoubleVolumeButtom = new Button("2x");
         setAddTextButtomAction(DoubleVolumeButtom, tf1, "+");
 
-        Label InstrumentLabel = new Label("Escolher instrumento:");
+        Label InstrumentLabel = new Label("Choose instrument:");
         Button DefaultInstrumentButtom = new Button("Default");
         setAddTextButtomAction(DefaultInstrumentButtom, tf1, "0");
         Button PanFluteInstrumentButtom = new Button("Pan Flute");
@@ -111,18 +111,18 @@ public class MusicCreator extends Application {
         setAddTextButtomAction(Piano1InstrumentButtom, tf1, " ");
         Button TubularBellsInstrumentButtom = new Button("Tubular Bells");
         setAddTextButtomAction(TubularBellsInstrumentButtom, tf1, "" + (char) 10);
-        Label InstrumentOptionsLabel = new Label("Mais instrumentos: dígitos de 1 à 9");
+        Label InstrumentOptionsLabel = new Label("More instruments: digits 1 to 9");
 
-        Label OthersLabel = new Label("Outros:");
-        Button SilenceButtom = new Button("Silêncio");
+        Label OthersLabel = new Label("Others:");
+        Button SilenceButtom = new Button("Silence");
         setAddTextButtomAction(SilenceButtom, tf1, "N");
-        Button ContinueButtom = new Button("Continuar");
+        Button ContinueButtom = new Button("Continue");
         setAddTextButtomAction(ContinueButtom, tf1, "N");
-        Button FlatButtom = new Button("Bemol");
+        Button FlatButtom = new Button("Flat");
         setAddTextButtomAction(FlatButtom, tf1, "H");
-        Button SharpButtom = new Button("Sustenido");
+        Button SharpButtom = new Button("Sharp");
         setAddTextButtomAction(SharpButtom, tf1, "T");
-        Button RepeatButtom = new Button("Repetir");
+        Button RepeatButtom = new Button("Repeat");
         setAddTextButtomAction(RepeatButtom, tf1, "I");
 
         leftPane.add(tf1, 0, 2, 4, 3);
@@ -207,7 +207,6 @@ public class MusicCreator extends Application {
                         leftPane.getChildren().remove(t);
                     }
                     t.setText("Please enter a music string");
-                    // root.addRow(5, t);
                     leftPane.add(t, 0, 6, 4, 1);
                     return;
                 } else {
@@ -226,7 +225,6 @@ public class MusicCreator extends Application {
                         leftPane.getChildren().remove(t);
                     }
                     t.setText("Please enter a music string");
-                    // root.addRow(5, t);
                     leftPane.add(t, 0, 6, 4, 1);
                     return;
                 } else {
@@ -266,7 +264,6 @@ public class MusicCreator extends Application {
                         leftPane.getChildren().remove(t);
                     }
                     t.setText("Please enter a music string");
-                    // root.addRow(5, t);
                     leftPane.add(t, 0, 6, 4, 1);
                     return;
                 } else {
